@@ -34,3 +34,15 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_NAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
           dockerfile: Dockerfile
+      - name: SSH & Update Conteiner
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.TECENT_HOST }}
+          username: ${{ secrets.TECENT_USERNAME }}
+          key: ${{ secrets.TECENT_PASSWORD }}
+          script: |
+            sudo docker container stop vueApp
+            sudo docker container rm  vueApp
+            sudo docker image rm mrtree/tecentimgs
+            sudo docker image pull mrtree/tecentimgs
+            sudo docker run -p 3000:80 -d --name vueApp mrtree/tecentimgs
