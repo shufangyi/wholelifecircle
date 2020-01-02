@@ -4,17 +4,14 @@ on:
     branches:
       - master
 jobs:
-  build-and-deploy:
+  build-and-deploy-github-page:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-
+      - uses: actions/checkout@v1
       - name: Build
         run: |
           HUSKY_SKIP_INSTALL=1 npm ci
-          npm run build
-
+          npm run build:gitpage
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
@@ -22,23 +19,18 @@ jobs:
           BRANCH: gh-pages
           FOLDER: dist
 
+  build-docker-image-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Build
+        run: |
+          npm ci
+          npm run build
       - name: Publish Docker
         uses: elgohr/Publish-Docker-Github-Action@2.11
         with:
           name: mrtree/tecentimgs
           username: ${{ secrets.DOCKER_HUB_NAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
-          # Use registry for pushing to a custom registry
-          # registry: mrtree/tecentimgs
-          # Use snapshot to push an additional image
-          # snapshot: # optional
-          # Use dockerfile when you would like to explicitly build a Dockerfile
           dockerfile: Dockerfile
-          # Use workdir when you would like to change the directory for building
-          # workdir: # optional
-          # Use buildargs when you want to pass a list of environment variables as build-args
-          # buildargs: # optional
-          # Use cache when you have big images, that you would only like to build partially
-          # cache: # optional
-          # Use tag_names when you want to push tags/release by their git name
-          # tag_names: # optional

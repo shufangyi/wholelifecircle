@@ -7,6 +7,7 @@
     "dev": "npm run serve",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "build:gitpage": "vue-cli-service build --release-target=gitpage",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
     "commit": "npx git-cz",
