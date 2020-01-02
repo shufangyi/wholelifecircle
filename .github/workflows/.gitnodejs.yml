@@ -28,13 +28,13 @@ jobs:
         uses: elgohr/Publish-Docker-Github-Action@2.11
         with:
           # The name of the image you would like to push
-          name: vue-site-example
+          name: mrtree/tecentimgs
           # The login username for the registry
           username: ${{ secrets.DOCKER_HUB_NAME }}
           # The login password for the registry
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
           # Use registry for pushing to a custom registry
-          registry: mrtree/tecentimgs
+          # registry: mrtree/tecentimgs
           # Use snapshot to push an additional image
           # snapshot: # optional
           # Use dockerfile when you would like to explicitly build a Dockerfile
