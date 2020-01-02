@@ -5,5 +5,13 @@ const publicPath =
     : '/'
 
 module.exports = {
-  publicPath
+  publicPath,
+  css: {
+    loaderOptions: {
+      scss: {
+        // 全局注入 scss 变量
+        prependData: `@import "@/styles/variables.scss";`
+      }
+    }
+  }
 }
