@@ -39,7 +39,7 @@ jobs:
         with:
           host: ${{ secrets.TECENT_HOST }}
           username: ${{ secrets.TECENT_USERNAME }}
-          key: ${{ secrets.TECENT_PASSWORD }}
+          password: ${{ secrets.TECENT_PASSWORD }}
           script: |
             sudo docker container stop vueApp
             sudo docker container rm  vueApp
