@@ -12,11 +12,11 @@ jobs:
 
       - name: Build
         run: |
-          npm install
+          HUSKY_SKIP_INSTALL=1 npm ci
           npm run build
 
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@master
+        uses: JamesIves/github-pages-deploy-action@releases/v3
         env:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           BRANCH: gh-pages
