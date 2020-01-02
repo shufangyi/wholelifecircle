@@ -10,28 +10,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
 
-      - name: Build and Deploy
+      - name: Build
+        run: |
+          npm install
+          npm run build
+
+      - name: Deploy
         uses: JamesIves/github-pages-deploy-action@master
         env:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           BRANCH: gh-pages
           FOLDER: dist
-          BUILD_SCRIPT: npm install && npm run build
-
-  publish-to-docker-hub:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@master
 
       - name: Publish Docker
         uses: elgohr/Publish-Docker-Github-Action@2.11
         with:
-          # The name of the image you would like to push
           name: mrtree/tecentimgs
-          # The login username for the registry
           username: ${{ secrets.DOCKER_HUB_NAME }}
-          # The login password for the registry
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
           # Use registry for pushing to a custom registry
           # registry: mrtree/tecentimgs
